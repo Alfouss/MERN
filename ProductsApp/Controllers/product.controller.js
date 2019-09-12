@@ -1,5 +1,6 @@
 const Product = require('../Models/product.model');
 
+//Use method find for call all Datas
 exports.read = (req, res) => {
     console.log(req.body)
     Product.find(function (err, product) {
@@ -8,6 +9,7 @@ exports.read = (req, res) => {
       });
 }
 
+//Use create for save datas received
 exports.create = (req, res) => {
     console.log(req)
     let product = new Product(
@@ -24,6 +26,7 @@ exports.create = (req, res) => {
     })
 };
 
+//Use update for change the datas received
 exports.update = (req, res) => {
     console.log(req.body)
     Product.findOneAndUpdate({ _id: req.body.id }, {$set: req.body}, function (err, product) {
@@ -32,6 +35,7 @@ exports.update = (req, res) => {
     });
 };
 
+//Use delete for remove the datas received
 exports.delete = (req, res) => {
     console.log(req.body)
 
