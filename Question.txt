@@ -1,0 +1,7 @@
+NPM: Node package management utilisé et installé dans le dossier node module
+
+Express:
+
+Body-Parser: Permet de récupéré les info du site et bien plus...
+
+Mongoose: Alternative de mongo (base de donnée)
