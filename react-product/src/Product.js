@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from "axios";
-import { isNumber, isString } from 'util';
+import { isString } from 'util';
 
 export default class Product extends React.Component {
     constructor(props){
@@ -67,6 +67,7 @@ export default class Product extends React.Component {
         }
     }
 
+    
     async deleteValue(res){
         let data = {
             id: res._id
@@ -77,32 +78,42 @@ export default class Product extends React.Component {
     }
 
 
-    modeEditList(bool){
+    modeEditList(key = null){
         let list = this.state.items.map((res, index) => {
-            
-            if(bool){
+            console.log(key)
+            if(key === null){
                 return (
                     <div key={index}>
-                    <p>{res.name}</p>
-                    <p>{res.price}</p>
-                    <button onClick={() => {this.modeEditList(false)}}>Edit</button>
-                    <button onClick={() => {this.deleteValue(res)}}>Delete</button>
-                </div>
-                );
-            }else{
-                return (
-                    <div key={index}>
-                        <form onSubmit={this.updateValue}>
-                            <input defaultValue={res._id} name="id" type="hidden"/>
-                            <input defaultValue={res.name} name="name" type="text"/>
-                            <input defaultValue={res.price} name="price" type="number"/>
-                            <button>Edit</button>
-                        </form>
+                        <p>{res.name}</p>
+                        <p>{res.price}</p>
+                        <button onClick={() => {this.modeEditList(index)}}>Edit</button>
+                        <button onClick={() => {this.deleteValue(res)}}>Delete</button>
                     </div>
                 );
+            }else{
+
+                if(key !== index){
+                    return (
+                        <div key={index}>
+                                <p>{res.name}</p>
+                                <p>{res.price}</p>
+                                <button onClick={() => {this.modeEditList(index)}}>Edit</button>
+                                <button onClick={() => {this.deleteValue(res)}}>Delete</button>
+                        </div>
+                    );
+                }else{
+                    return (
+                        <div key={index}>
+                            <form onSubmit={this.updateValue}>
+                                <input defaultValue={res._id} name="id" type="hidden"/>
+                                <input defaultValue={res.name} name="name" type="text"/>
+                                <input defaultValue={res.price} name="price" type="number"/>
+                                <button>Edit</button>
+                            </form>
+                        </div>
+                    );
+                }
             }
-            
-            
         });
 
         this.setState({list: list});
@@ -111,7 +122,7 @@ export default class Product extends React.Component {
     render(){
         return(
             <div>
-                <button onClick={() => this.modeEditList(true)}>Edit</button>
+                <button onClick={() => this.modeEditList(null)}>Edit</button>
                 <form onSubmit={this.sendForm}>
                     <input name="name" ref="name" type="text" />
                     <input name="price" ref="price" type="text"/>

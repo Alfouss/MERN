@@ -6,7 +6,6 @@
 [NodeJS](https://nodejs.org)
 
 body-parser
-cord
 cors
 express
 mongoose
